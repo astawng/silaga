@@ -10,19 +10,34 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     git \
+    curl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd mbstring pdo pdo_mysql zip
 
 # Install Composer
 COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 
+# (Optional) Install Node.js (needed if you use npm)
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
+# Set working directory
 WORKDIR /var/www/html
 
-# Copy application files
+# Copy project files
 COPY . .
 
 # Install dependencies
-RUN composer clear-cache
 RUN composer install --no-dev --optimize-autoloader
+RUN npm install && npm run build
 
-CMD ["php-fpm"]
+# Set permissions (optional)
+RUN chmod -R 775 storage bootstrap/cache
+
+# Expose port for Railway
+EXPOSE 8080
+
+# Run artisan key:generate and migrate during container start
+CMD php artisan key:generate && \
+    php artisan migrate:fresh --seed && \
+    php artisan serve --host=0.0.0.0 --port=8080
