@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
 # Install Composer
 COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 
-# (Optional) Install Node.js (needed if you use npm)
+# Install Node.js (optional, if using npm)
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs
 
@@ -27,19 +27,18 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . .
 
-# Install dependencies
+# Install PHP and Node dependencies
 RUN composer install --no-dev --optimize-autoloader
 RUN npm install && npm run build
 
-# Set permissions (optional)
+# Set permissions
 RUN chmod -R 775 storage bootstrap/cache
 
 # Expose port for Railway
 EXPOSE 8080
 
-# Run artisan key:generate and migrate during container start
-CMD php artisan migrate:fresh --seed && \
+# Run Laravel setup commands
+CMD php artisan config:clear && \
+    php artisan config:cache && \
+    php artisan migrate:fresh --seed && \
     php artisan serve --host=0.0.0.0 --port=8080
-
-
-
