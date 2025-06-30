@@ -21,8 +21,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicon -->
-    <link href="{{ asset ('BizLand/Logo_Icon.jpeg')}}" rel="icon">
-    <link href="{{ asset('BizLand/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+    <link href="{{ asset('BizLand/Logo_Icon.jpeg') }}" rel="icon">
+    <link href="{{ asset('BizLand/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

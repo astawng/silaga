@@ -4,8 +4,8 @@
     <title>SILAGA | Home</title>
 
     <!-- Favicons -->
-    <link href="{{ asset('BizLand/Logo_Icon.jpeg')}}" rel="icon">
-    <link href="{{ asset('BizLand/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+    <link href="{{ asset('BizLand/Logo_Icon.jpeg') }}" rel="icon">
+    <link href="{{ asset('BizLand/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
