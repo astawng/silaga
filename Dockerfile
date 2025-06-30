@@ -38,6 +38,10 @@ RUN chmod -R 775 storage bootstrap/cache
 EXPOSE 8080
 
 # Run artisan key:generate and migrate during container start
-CMD php artisan key:generate && \
+CMD echo "🌱 Menjalankan Artisan Key Generate..." && \
+    php artisan key:generate && \
+    echo "🌱 Menjalankan Migrasi & Seeder..." && \
     php artisan migrate:fresh --seed && \
+    echo "🚀 Menjalankan Laravel Serve..." && \
     php artisan serve --host=0.0.0.0 --port=8080
+
