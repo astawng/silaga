@@ -38,6 +38,5 @@ RUN chmod -R 775 storage bootstrap/cache
 EXPOSE 8080
 
 # Run artisan key:generate and migrate during container start
-RUN php artisan key:generate
 RUN php artisan migrate:fresh --seed
 RUN php artisan serve --host=0.0.0.0 --port=8080
