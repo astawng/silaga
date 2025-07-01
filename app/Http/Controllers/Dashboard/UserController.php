@@ -65,6 +65,7 @@ class UserController extends Controller
     public function store(StoreRequest $request)
     {
         $user = $request->validated();
+        $user['password'] = \Hash::make($request->password);
         if($request->role_id == 2)
         {
             $user['email_verified_at'] = Carbon::now();
